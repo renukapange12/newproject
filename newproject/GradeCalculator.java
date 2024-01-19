@@ -2,6 +2,10 @@ package newproject;
 
 import java.util.Scanner;
 
+/*
+ * TASK 2: Student Grade Calculator
+ */
+
 class Grade {
     public String grade(int avgp) {
         switch (avgp / 10) {

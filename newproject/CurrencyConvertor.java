@@ -4,7 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+/*
+ * TASK 3: Currency Converter
+ */
+
 public class CurrencyConvertor {
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
