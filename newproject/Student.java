@@ -1,3 +1,4 @@
+package newproject;
 
 public class Student {
     private String name;

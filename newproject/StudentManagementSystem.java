@@ -1,8 +1,4 @@
-/*
- * StudentManagementSystem.java
- * Coder: Namrata Ingle
- * Copyright (c) [2023] Namrata Ingle. All rights reserved.
- */
+package newproject;
 
 import java.util.ArrayList;
 import java.util.List;
