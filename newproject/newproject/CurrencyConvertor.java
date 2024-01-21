@@ -320,19 +320,18 @@ public class CurrencyConvertor extends javax.swing.JFrame {
 
         t2.setText(value);
 
-    }// GEN-LAST:event_jButton1ActionPerformed
+    }
 
-    private void firstCountryActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_firstCountryActionPerformed
-        // TODO add your handling code here:
-    }// GEN-LAST:event_firstCountryActionPerformed
+    private void firstCountryActionPerformed(java.awt.event.ActionEvent evt) {
+    }
 
-    private void firstCountryItemStateChanged(java.awt.event.ItemEvent evt) {// GEN-FIRST:event_firstCountryItemStateChanged
+    private void firstCountryItemStateChanged(java.awt.event.ItemEvent evt) {
         firstCurrencyUnit.setText(currencyUnits[firstCountry.getSelectedIndex()]);
-    }// GEN-LAST:event_firstCountryItemStateChanged
+    }
 
-    private void secondCountryItemStateChanged(java.awt.event.ItemEvent evt) {// GEN-FIRST:event_secondCountryItemStateChanged
+    private void secondCountryItemStateChanged(java.awt.event.ItemEvent evt) {
         secondCurrencyUnit.setText(currencyUnits[secondCountry.getSelectedIndex()]);
-    }// GEN-LAST:event_secondCountryItemStateChanged
+    }
 
     public static void main(String args[]) {
 
