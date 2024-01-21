@@ -35,7 +35,6 @@ public class Student {
         this.grade = grade;
     }
 
-    // Override toString method for better representation
     @Override
     public String toString() {
         return "Student{" +
