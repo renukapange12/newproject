@@ -1,384 +1,165 @@
 package newproject;
 
-public class CurrencyConvertor extends javax.swing.JFrame {
-    double US_Dollar = 1.31;
-    double Nigerian_Naira = 476.57;
-    double Brazilian_Real = 5.47;
-    double Canadian_Dollar = 1.71;
-    double Kenyan_Shilling = 132.53;
-    double Indonesian_Rupiah = 19554.94;
-    double Indian_Rupee = 95.21;
-    double Philippine_Pisco = 71.17;
-    double Pakistani_Rupee = 162.74;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-    String[] currencyUnits = {
-            "Units",
-            "US Dollar",
-            "Nigerian Naira",
-            "Brazilian Real",
-            "Canadian Dollar",
-            "Kenyan Shilling",
-            "Indonesian Rupiah",
-            "Indian Rupee",
-            "Philippine Pisco",
-            "Paskistani Rupee"
+public class CurrencyConvertor extends JFrame {
+    private JLabel fromLabel, toLabel, amountLabel, resultLabel;
+    private JTextField amountTextField, resultTextField;
+    private JComboBox<String> fromComboBox, toComboBox;
+    private JButton convertButton;
+
+    private double[][] exchangeRates = {
+            { 1.0, 0.014, 0.011, 0.012, 1.38, 0.16, 0.000023 }, // INR
+            { 71.57, 1.0, 0.86, 1.27, 113.06, 6.38, 0.000023 } // USD
     };
 
     public CurrencyConvertor() {
-        initComponents();
+        setTitle("Currency Convertor");
+        setSize(400, 200);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(null);
+
+        fromLabel = new JLabel("From:");
+        toLabel = new JLabel("To:");
+        amountLabel = new JLabel("Amount:");
+        resultLabel = new JLabel("Result:");
+
+        amountTextField = new JTextField();
+        resultTextField = new JTextField();
+        resultTextField.setEditable(false);
+
+        fromComboBox = new JComboBox<>(getCurrencies());
+        toComboBox = new JComboBox<>(getCurrencies());
+
+        convertButton = new JButton("Convert");
+
+        // Set component positions and sizes
+        fromLabel.setBounds(20, 20, 60, 20);
+        toLabel.setBounds(20, 50, 60, 20);
+        amountLabel.setBounds(20, 80, 60, 20);
+        resultLabel.setBounds(20, 110, 60, 20);
+
+        fromComboBox.setBounds(80, 20, 100, 20);
+        toComboBox.setBounds(80, 50, 100, 20);
+        amountTextField.setBounds(80, 80, 100, 20);
+        resultTextField.setBounds(80, 110, 100, 20);
+
+        convertButton.setBounds(200, 80, 100, 50);
+
+        // Add components to the frame
+        add(fromLabel);
+        add(toLabel);
+        add(amountLabel);
+        add(resultLabel);
+        add(fromComboBox);
+        add(toComboBox);
+        add(amountTextField);
+        add(resultTextField);
+        add(convertButton);
+
+        // Add action listener to the convert button
+        convertButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        convertCurrency();
+                        showThankYouMessage();
+                    }
+                });
+            }
+        });
     }
 
-    // @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated
-    // Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
-
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        firstCountry = new javax.swing.JComboBox<>();
-        secondCountry = new javax.swing.JComboBox<>();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        t1 = new javax.swing.JTextField();
-        t2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        secondCurrencyUnit = new javax.swing.JLabel();
-        firstCurrencyUnit = new javax.swing.JLabel();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 5));
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setText("Currency Converter");
-
-        firstCountry.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        firstCountry.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose One...", "USA", "Nigeria",
-                "Brazil", "Canada", "Kenyan", "Indonesia", "India", "Philippine", "Pakistan" }));
-        firstCountry.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                firstCountryItemStateChanged(evt);
-            }
-        });
-        firstCountry.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                firstCountryActionPerformed(evt);
-            }
-        });
-
-        secondCountry.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        secondCountry.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose One...", "USA", "Nigeria",
-                "Brazil", "Canada", "Kenyan", "Indonesia", "India", "Philippine", "Pakistan" }));
-        secondCountry.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                secondCountryItemStateChanged(evt);
-            }
-        });
-
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel2.setText("From currency Of");
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel3.setText("To currency Of");
-
-        t1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-
-        t2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton1.setText("Convert Currency");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton2.setText("Reset");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jButton3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jButton3.setText("Exit");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        secondCurrencyUnit.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        secondCurrencyUnit.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        secondCurrencyUnit.setText("units");
-
-        firstCurrencyUnit.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        firstCurrencyUnit.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        firstCurrencyUnit.setText("units");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel1)
-                                .addGap(290, 290, 290))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(93, 93, 93)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jButton1)
-                                        .addGroup(jPanel1Layout
-                                                .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(firstCountry, 0, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        Short.MAX_VALUE)
-                                                .addComponent(t1)
-                                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 131,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(firstCurrencyUnit, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                        277, Short.MAX_VALUE)))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addGap(81, 81, 81)
-                                                .addGroup(jPanel1Layout
-                                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addGroup(jPanel1Layout
-                                                                .createParallelGroup(
-                                                                        javax.swing.GroupLayout.Alignment.LEADING,
-                                                                        false)
-                                                                .addComponent(jLabel3)
-                                                                .addComponent(secondCountry, 0, 272, Short.MAX_VALUE)
-                                                                .addComponent(t2))
-                                                        .addComponent(secondCurrencyUnit,
-                                                                javax.swing.GroupLayout.PREFERRED_SIZE, 277,
-                                                                javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addGap(11, 11, 11)
-                                                .addComponent(jButton2)
-                                                .addGap(94, 94, 94)
-                                                .addComponent(jButton3)))
-                                .addContainerGap(114, Short.MAX_VALUE)));
-        jPanel1Layout.setVerticalGroup(
-                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel1)
-                                .addGap(28, 28, 28)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel2)
-                                        .addComponent(jLabel3))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout
-                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(firstCountry, javax.swing.GroupLayout.DEFAULT_SIZE, 42,
-                                                Short.MAX_VALUE)
-                                        .addComponent(secondCountry))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout
-                                        .createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(t1, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
-                                        .addComponent(t2))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                                .addComponent(secondCurrencyUnit,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE, 20,
-                                                        javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(23, 23, 23))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout
-                                                .createSequentialGroup()
-                                                .addComponent(firstCurrencyUnit, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                        20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jButton1)
-                                        .addComponent(jButton2)
-                                        .addComponent(jButton3))
-                                .addContainerGap(57, Short.MAX_VALUE)));
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addContainerGap()));
-        layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
-
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton3ActionPerformed
-
-        System.exit(0);
-
-    }// GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton2ActionPerformed
-
-        firstCountry.setSelectedIndex(0);
-        secondCountry.setSelectedIndex(0);
-        t1.setText("");
-        t2.setText("");
-
+    // Task 1: Allow the user to choose the base currency and the target currency.
+    private String[] getCurrencies() {
+        return new String[] { "INR", "USD", "Euro", "CAD", "JPY", "CNY", "Bitcoin" };
     }
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
+    // Task 2: Fetch real-time exchange rates from a reliable API.
+    // For simplicity, use fixed rates here. Replace with actual API calls in a
+    // real-world scenario.
+    private double getExchangeRate(String fromCurrency, String toCurrency) {
+        int fromIndex = getIndex(fromCurrency);
+        int toIndex = getIndex(toCurrency);
 
-        // if(firstCountry.getSelectedIndex()==0 || secondCountry.getSelectedIndex()==0
-        // || t1.getText().equals(""))
-        // {
-        // JOptionPane.showMessageDialog(null,"You Must Select both Countries and must
-        // input the amount.","ErrorMessage",
-        // JOptionPane.INFORMATION_MESSAGE
-        // );
-        // return;
-        // }
+        return exchangeRates[fromIndex][toIndex];
+    }
 
-        double amountToChange = Double.parseDouble(t1.getText());
-        double amountChanged = 0.0;
-        double amountInPounds = 0.0;
-
-        switch (firstCountry.getSelectedItem().toString()) {
-            case "USA":
-                amountInPounds = amountToChange / US_Dollar;
-                break;
-            case "Nigeria":
-                amountInPounds = amountToChange / Nigerian_Naira;
-                break;
-            case "Brazil":
-                amountInPounds = amountToChange / Brazilian_Real;
-                break;
-            case "Canada":
-                amountInPounds = amountToChange / Canadian_Dollar;
-                break;
-            case "Kenyan":
-                amountInPounds = amountToChange / Kenyan_Shilling;
-                break;
-            case "Indonesia":
-                amountInPounds = amountToChange / Indonesian_Rupiah;
-                break;
-            case "India":
-                amountInPounds = amountToChange / Indian_Rupee;
-                break;
-            case "Philippine":
-                amountInPounds = amountToChange / Philippine_Pisco;
-                break;
-            case "Pakistan":
-                amountInPounds = amountToChange / Pakistani_Rupee;
-                break;
+    private int getIndex(String currency) {
+        switch (currency) {
+            case "INR":
+                return 0;
+            case "USD":
+                return 1;
+            case "Euro":
+                return 2;
+            case "CAD":
+                return 3;
+            case "JPY":
+                return 4;
+            case "CNY":
+                return 5;
+            case "Bitcoin":
+                return 6;
             default:
-                amountInPounds = 0.0;
+                return -1;
         }
+    }
 
-        // amount is Changed in pounds
+    // Task 3: Take input from the user for the amount they want to convert.
+    // Task 4: Convert the input amount from the base currency to the target
+    // currency using the fetched exchange rate.
+    private void convertCurrency() {
+        // Get selected currencies and amount
+        String fromCurrency = (String) fromComboBox.getSelectedItem();
+        String toCurrency = (String) toComboBox.getSelectedItem();
+        double amount = Double.parseDouble(amountTextField.getText());
 
-        switch (secondCountry.getSelectedItem().toString()) {
-            case "USA":
-                amountChanged = amountInPounds * US_Dollar;
-                break;
-            case "Nigeria":
-                amountChanged = amountInPounds * Nigerian_Naira;
-                break;
-            case "Brazil":
-                amountChanged = amountInPounds * Brazilian_Real;
-                break;
-            case "Canada":
-                amountChanged = amountInPounds * Canadian_Dollar;
-                break;
-            case "Kenyan":
-                amountChanged = amountInPounds * Kenyan_Shilling;
-                break;
-            case "Indonesia":
-                amountChanged = amountInPounds * Indonesian_Rupiah;
-                break;
-            case "India":
-                amountChanged = amountInPounds * Indian_Rupee;
-                break;
-            case "Philippine":
-                amountChanged = amountInPounds * Philippine_Pisco;
-                break;
-            case "Pakistan":
-                amountChanged = amountInPounds * Pakistani_Rupee;
-                break;
-            default:
-                amountChanged = amountInPounds * 0.0;
+        // Fetch real-time exchange rate
+        double exchangeRate = getExchangeRate(fromCurrency, toCurrency);
+
+        // Perform currency conversion
+        double result = amount * exchangeRate;
+
+        // Display the result
+        resultTextField.setText(String.format("%.2f %s", result, toCurrency));
+    }
+
+    private void showThankYouMessage() {
+        int option = JOptionPane.showOptionDialog(this,
+                "Thank you for using the Currency Converter!\nDo you want to try again?",
+                "Currency Converter",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                new Object[] { "Yes", "No" },
+                "Yes");
+
+        if (option == JOptionPane.YES_OPTION) {
+            // Reset input fields for another conversion
+            amountTextField.setText("");
+            resultTextField.setText("");
+        } else {
+            // Exit the application
+            System.exit(0);
         }
-
-        String value = String.format("%.2f", amountChanged);
-
-        t2.setText(value);
-
     }
 
-    private void firstCountryActionPerformed(java.awt.event.ActionEvent evt) {
-    }
-
-    private void firstCountryItemStateChanged(java.awt.event.ItemEvent evt) {
-        firstCurrencyUnit.setText(currencyUnits[firstCountry.getSelectedIndex()]);
-    }
-
-    private void secondCountryItemStateChanged(java.awt.event.ItemEvent evt) {
-        secondCurrencyUnit.setText(currencyUnits[secondCountry.getSelectedIndex()]);
-    }
-
-    public static void main(String args[]) {
-
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CurrencyConvertor.class.getName()).log(java.util.logging.Level.SEVERE,
-                    null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CurrencyConvertor.class.getName()).log(java.util.logging.Level.SEVERE,
-                    null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CurrencyConvertor.class.getName()).log(java.util.logging.Level.SEVERE,
-                    null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CurrencyConvertor.class.getName()).log(java.util.logging.Level.SEVERE,
-                    null, ex);
-        }
-        // </editor-fold>
-        // </editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                new CurrencyConvertor().setVisible(true);
+                // Show welcome message
+                JOptionPane.showMessageDialog(null, "Welcome to the Currency Converter!");
+
+                // Launch the application
+                CurrencyConvertor converter = new CurrencyConvertor();
+                converter.setVisible(true);
             }
         });
     }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> firstCountry;
-    private javax.swing.JLabel firstCurrencyUnit;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JComboBox<String> secondCountry;
-    private javax.swing.JLabel secondCurrencyUnit;
-    private javax.swing.JTextField t1;
-    private javax.swing.JTextField t2;
-    // End of variables declaration//GEN-END:variables
 }
