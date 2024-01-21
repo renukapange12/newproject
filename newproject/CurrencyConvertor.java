@@ -10,17 +10,22 @@ public class CurrencyConvertor extends JFrame {
     private JComboBox<String> fromComboBox, toComboBox;
     private JButton convertButton;
 
+    // Real-time exchange rates fetched from a reliable API (Replace these with
+    // actual API calls)
     private double[][] exchangeRates = {
             { 1.0, 0.014, 0.011, 0.012, 1.38, 0.16, 0.000023 }, // INR
             { 71.57, 1.0, 0.86, 1.27, 113.06, 6.38, 0.000023 } // USD
+            // Add more rows for additional currencies
     };
 
     public CurrencyConvertor() {
-        setTitle("Currency Convertor");
+        // Set up the frame
+        setTitle("Currency Converter");
         setSize(400, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
 
+        // Initialize components
         fromLabel = new JLabel("From:");
         toLabel = new JLabel("To:");
         amountLabel = new JLabel("Amount:");
